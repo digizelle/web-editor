@@ -4,6 +4,6 @@ import TheWelcome from '../components/TheWelcome.vue'
 
 <template>
   <main>
-    <TheWelcome />
+    <p>Si vous êtes sur cette page, c'est que vous n'avez bpas bien cliqué.</p>
   </main>
 </template>
