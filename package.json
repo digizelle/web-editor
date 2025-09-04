@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "release": "commit-and-tag-version"
   },
   "dependencies": {
     "vue": "^3.4.0",
@@ -15,6 +16,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.0",
     "autoprefixer": "^10.4.16",
+    "commit-and-tag-version": "^12.6.0",
     "postcss": "^8.4.32",
     "tailwindcss": "^3.3.6",
     "typescript": "^5.2.2",
