@@ -10,7 +10,7 @@
     "release": "commit-and-tag-version"
   },
   "dependencies": {
-    "vue": "^3.4.0",
+    "vue": "^3.5.21",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
