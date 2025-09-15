@@ -14,6 +14,7 @@
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.13",
     "@vitejs/plugin-vue": "^6.0.1",
     "autoprefixer": "^10.4.16",
     "commit-and-tag-version": "^12.6.0",
