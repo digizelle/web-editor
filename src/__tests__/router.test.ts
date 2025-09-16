@@ -1,5 +1,4 @@
 import { describe, it, expect } from 'vitest'
-import { createRouter, createWebHashHistory } from 'vue-router'
 
 // Import router configuration without the actual components
 import { createRouter as createTestRouter, createWebHashHistory as createTestHistory } from 'vue-router'

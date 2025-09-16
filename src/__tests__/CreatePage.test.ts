@@ -214,7 +214,7 @@ describe('CreatePage.vue', () => {
     const titleInput = wrapper.find('input[placeholder="Titre du template..."]')
     await titleInput.setValue('Test Template')
     
-    expect(titleInput.element.value).toBe('Test Template')
+    expect((titleInput.element as HTMLInputElement).value).toBe('Test Template')
   })
 
   it('updates HTML code', async () => {
@@ -233,7 +233,7 @@ describe('CreatePage.vue', () => {
     const htmlTextarea = wrapper.find('textarea[placeholder="Entrez votre code HTML ici..."]')
     await htmlTextarea.setValue('<h1>Test HTML</h1>')
     
-    expect(htmlTextarea.element.value).toBe('<h1>Test HTML</h1>')
+    expect((htmlTextarea.element as HTMLTextAreaElement).value).toBe('<h1>Test HTML</h1>')
   })
 
   it('updates CSS code', async () => {
@@ -252,7 +252,7 @@ describe('CreatePage.vue', () => {
     const cssTextarea = wrapper.find('textarea[placeholder="Entrez votre code CSS ici..."]')
     await cssTextarea.setValue('body { color: red; }')
     
-    expect(cssTextarea.element.value).toBe('body { color: red; }')
+    expect((cssTextarea.element as HTMLTextAreaElement).value).toBe('body { color: red; }')
   })
 
   it('updates JavaScript code', async () => {
@@ -271,7 +271,7 @@ describe('CreatePage.vue', () => {
     const jsTextarea = wrapper.find('textarea[placeholder="Entrez votre code JavaScript ici..."]')
     await jsTextarea.setValue('console.log("test");')
     
-    expect(jsTextarea.element.value).toBe('console.log("test");')
+    expect((jsTextarea.element as HTMLTextAreaElement).value).toBe('console.log("test");')
   })
 
   it('has proper section headings', () => {
