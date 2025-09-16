@@ -2,9 +2,9 @@
   <div class="space-y-6">
     <div class="flex items-center justify-between">
       <h1 class="text-3xl font-bold text-gray-900">{{ template?.title || 'Chargement...' }}</h1>
-      <router-link 
-        to="/" 
-        class="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition-colors"
+      <router-link
+          to="/"
+          class="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition-colors"
       >
         ← Retour à l'accueil
       </router-link>
@@ -14,45 +14,48 @@
       <!-- Éditeurs de code -->
       <div class="space-y-4">
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
-          <div class="bg-red-500 text-white px-4 py-2 font-medium">HTML</div>
-          <textarea
-            v-model="currentCode.html"
-            @input="updatePreview"
-            class="w-full h-40 p-4 font-mono text-sm border-none resize-none focus:outline-none focus:ring-2 focus:ring-red-500"
-            placeholder="Entrez votre code HTML ici..."
-          ></textarea>
+          <div id="html-label" class="bg-red-500 text-white px-4 py-2 font-medium">HTML</div>
+          <CodeEditor
+              aria-labelledby="html-label"
+              v-model:value="currentCode.html"
+              language="html"
+              theme="vs-dark"
+              :options="editorOptions"
+              @change="updatePreview"/>
         </div>
 
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
-          <div class="bg-blue-500 text-white px-4 py-2 font-medium">CSS</div>
-          <textarea
-            v-model="currentCode.css"
-            @input="updatePreview"
-            class="w-full h-40 p-4 font-mono text-sm border-none resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Entrez votre code CSS ici..."
-          ></textarea>
+          <div id="css-label" class="bg-blue-500 text-white px-4 py-2 font-medium">CSS</div>
+          <CodeEditor
+              aria-labelledby="css-label"
+              v-model:value="currentCode.css"
+              language="css"
+              theme="vs-dark"
+              :options="editorOptions"
+              @change="updatePreview"/>
         </div>
 
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
-          <div class="bg-yellow-500 text-white px-4 py-2 font-medium">JavaScript</div>
-          <textarea
-            v-model="currentCode.javascript"
-            @input="updatePreview"
-            class="w-full h-40 p-4 font-mono text-sm border-none resize-none focus:outline-none focus:ring-2 focus:ring-yellow-500"
-            placeholder="Entrez votre code JavaScript ici..."
-          ></textarea>
+          <div id="javascript-label" class="bg-yellow-500 text-white px-4 py-2 font-medium">JavaScript</div>
+          <codeEditor
+              aria-labelledby="javascript-label"
+              v-model:value="currentCode.javascript"
+              language="javascript"
+              theme="vs-dark"
+              :options="editorOptions"
+              @change="updatePreview"/>
         </div>
 
         <div class="flex space-x-4">
           <button
-            @click="resetCode"
-            class="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition-colors"
+              @click="resetCode"
+              class="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition-colors"
           >
             Réinitialiser
           </button>
           <button
-            @click="toggleConsole"
-            class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors"
+              @click="toggleConsole"
+              class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors"
           >
             {{ showConsole ? 'Masquer' : 'Afficher' }} Console
           </button>
@@ -64,9 +67,9 @@
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
           <div class="bg-gray-700 text-white px-4 py-2 font-medium">Aperçu</div>
           <iframe
-            ref="previewFrame"
-            class="w-full h-96 border-none"
-            sandbox="allow-scripts"
+              ref="previewFrame"
+              class="w-full h-96 border-none"
+              sandbox="allow-scripts"
           ></iframe>
         </div>
 
@@ -94,8 +97,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, nextTick } from 'vue'
-import { useRoute } from 'vue-router'
+import {nextTick, onMounted, ref} from 'vue'
+import {useRoute} from 'vue-router'
+import {CodeEditor} from "monaco-editor-vue3";
+
+const editorOptions = {
+  theme: 'vs-dark',
+  automaticLayout: true,
+  minimap: {enabled: false},
+  fontSize: 14,
+  lineHeight: 20,
+  // enable accessibility
+  accessibilitySupport: 'on'
+}
 
 interface Template {
   title: string
@@ -133,7 +147,7 @@ const loadTemplate = async () => {
     if (response.ok) {
       const data = await response.json()
       template.value = data
-      
+
       // Charger le code sauvegardé ou utiliser le template par défaut
       const savedCode = localStorage.getItem(`template-${route.params.id}`)
       if (savedCode) {
@@ -145,7 +159,7 @@ const loadTemplate = async () => {
           javascript: data.javascript.join('\n')
         }
       }
-      
+
       await nextTick()
       updatePreview()
     } else {
@@ -158,10 +172,10 @@ const loadTemplate = async () => {
 
 const updatePreview = () => {
   if (!previewFrame.value) return
-  
+
   // Sauvegarder dans localStorage
   localStorage.setItem(`template-${route.params.id}`, JSON.stringify(currentCode.value))
-  
+
   // Créer le HTML complet avec console capture
   const fullHtml = `
     <!DOCTYPE html>
@@ -175,7 +189,7 @@ const updatePreview = () => {
         // Capturer les console.log
         const originalLog = console.log;
         const originalError = console.error;
-        
+
         console.log = function(...args) {
           window.parent.postMessage({
             type: 'console',
@@ -184,7 +198,7 @@ const updatePreview = () => {
           }, '*');
           originalLog.apply(console, args);
         };
-        
+
         console.error = function(...args) {
           window.parent.postMessage({
             type: 'console',
@@ -193,7 +207,7 @@ const updatePreview = () => {
           }, '*');
           originalError.apply(console, args);
         };
-        
+
         // Capturer les erreurs
         window.onerror = function(message, source, lineno, colno, error) {
           window.parent.postMessage({
@@ -202,7 +216,7 @@ const updatePreview = () => {
             message: 'Erreur: ' + message
           }, '*');
         };
-        
+
         try {
           ${currentCode.value.javascript}
         } catch (error) {
@@ -212,8 +226,8 @@ const updatePreview = () => {
     </body>
     </html>
   `
-  
-  const blob = new Blob([fullHtml], { type: 'text/html' })
+
+  const blob = new Blob([fullHtml], {type: 'text/html'})
   const url = URL.createObjectURL(blob)
   previewFrame.value.src = url
 }
@@ -243,7 +257,7 @@ window.addEventListener('message', (event) => {
       type: event.data.level,
       timestamp: now
     })
-    
+
     // Limiter à 50 logs
     if (consoleLogs.value.length > 50) {
       consoleLogs.value = consoleLogs.value.slice(-50)
