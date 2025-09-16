@@ -1,7 +1,14 @@
 # modules
 node_modules
 
+# build artifacts
+dist
+
 # IDE files
 .idea
+
 # env
 .env
+
+# OS files
+.DS_Store
