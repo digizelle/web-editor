@@ -1,6 +1,12 @@
 # modules
 node_modules
 
+# build artifacts
+dist
+
+# coverage
+coverage
+
 # IDE files
 .idea
 # env
