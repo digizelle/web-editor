@@ -1,6 +1,9 @@
 # modules
 node_modules
 
+# build output
+dist
+
 # IDE files
 .idea
 # env
