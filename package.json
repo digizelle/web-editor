@@ -10,7 +10,7 @@
     "release": "commit-and-tag-version"
   },
   "dependencies": {
-    "monaco-editor": "^0.53.0",
+    "monaco-editor": "^0.54.0",
     "monaco-editor-vue3": "^1.0.4",
     "vue": "^3.5.22",
     "vue-router": "^4.2.5"
