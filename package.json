@@ -19,7 +19,7 @@
     "@tailwindcss/postcss": "^4.1.17",
     "@vitejs/plugin-vue": "^6.0.2",
     "autoprefixer": "^10.4.22",
-    "commit-and-tag-version": "^12.6.0",
+    "commit-and-tag-version": "^12.6.1",
     "postcss": "^8.4.32",
     "tailwindcss": "^4.1.17",
     "typescript": "^5.9.3",
