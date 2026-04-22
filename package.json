@@ -21,7 +21,7 @@
     "autoprefixer": "^10.5.0",
     "commit-and-tag-version": "^12.7.1",
     "postcss": "^8.5.10",
-    "tailwindcss": "^4.2.3",
+    "tailwindcss": "^4.2.4",
     "typescript": "^6.0.3",
     "vite": "^8.0.9",
     "vue-tsc": "^3.2.7"
